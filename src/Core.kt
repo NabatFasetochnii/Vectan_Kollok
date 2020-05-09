@@ -1,6 +1,6 @@
 import kotlin.math.*
 
-val EPS = 1.0E-9
+const val EPS = 1.0E-9
 
 fun main() {
 
@@ -68,11 +68,11 @@ fun main() {
 
 fun acik(sv1: DoubleArray, sv2: DoubleArray) {
 
-    val buf = sv1
-
+    var v: Double
     for (i in 0..2){
+        v = sv1[i]
         sv1[i] = sv2[i]
-        sv2[i] = buf[i]
+        sv2[i] = v
     }
 
 }
