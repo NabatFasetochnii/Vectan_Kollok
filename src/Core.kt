@@ -223,24 +223,34 @@ fun findSz(tenz: Array<DoubleArray>): DoubleArray {
     val qBig = (b.pow(2.0) - 3.0 * c) / 9.0
     val rBig = (2.0 * b.pow(3.0) - 9.0 * b * c + 27.0 * d) / 54.0
 
-    if (qBig.pow(3.0) <= rBig.pow(2.0)) {
-        println("ошибка в тригонометрической формуле Виета")
+    when {
+        qBig.pow(3.0) < rBig.pow(2.0) -> {
+            println("ошибка в тригонометрической формуле Виета")
+            return doubleArrayOf(0.0, 0.0, 0.0)
+        }
+        qBig.pow(3.0) > rBig.pow(2.0) -> {
+            val x1 = -2 * qBig.pow(0.5) * cos(
+                (1.0 / 3.0) *
+                        acos(rBig / qBig.pow(3.0 / 2.0))
+            ) - b / 3.0
+            val x2 = -2 * qBig.pow(0.5) * cos(
+                2.0 * PI / 3.0 + (1.0 / 3.0) *
+                        acos(rBig / qBig.pow(3.0 / 2.0))
+            ) - b / 3.0
+            val x3 = -2 * qBig.pow(0.5) * cos(
+                -2.0 * PI / 3.0 + (1.0 / 3.0) *
+                        acos(rBig / qBig.pow(3.0 / 2.0))
+            ) - b / 3.0
+            return doubleArrayOf(x1, x2, x3)
+        }
+        else -> {
+            val x1 = -2 * rBig.pow(1.0/3.0) - b / 3.0
+            val x2 = rBig.pow(1.0/3.0)  - b / 3.0
+
+            return doubleArrayOf(x1, x2, x2)
+        }
     }
 
-    val x1 = -2 * qBig.pow(0.5) * cos(
-        (1.0 / 3.0) *
-                acos(rBig / qBig.pow(3.0 / 2.0))
-    ) - b / 3.0
-    val x2 = -2 * qBig.pow(0.5) * cos(
-        2.0 * PI / 3.0 + (1.0 / 3.0) *
-                acos(rBig / qBig.pow(3.0 / 2.0))
-    ) - b / 3.0
-    val x3 = -2 * qBig.pow(0.5) * cos(
-        -2.0 * PI / 3.0 + (1.0 / 3.0) *
-                acos(rBig / qBig.pow(3.0 / 2.0))
-    ) - b / 3.0
-
-    return doubleArrayOf(x1, x2, x3)
 
 }
 
